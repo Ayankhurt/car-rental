@@ -11,7 +11,7 @@ const CarDetails = () => {
   const [returnDate, setReturnDate] = useState('');
 
   const { id } = useParams()
-  const { cars, axios } = useAppContext()
+  const { cars, api } = useAppContext()
 
   const navigate = useNavigate()
   const [car, setCar] = useState(null)
@@ -20,7 +20,7 @@ const CarDetails = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('/api/bookings/create', {
+      const { data } = await api.post('/bookings/create', {
         car: id,
         pickupDate,
         returnDate

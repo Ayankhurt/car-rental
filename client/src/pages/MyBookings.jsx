@@ -7,14 +7,14 @@ import { motion } from 'motion/react'
 
 const MyBookings = () => {
 
-  const { axios, user, currency } = useAppContext();
+  const { api, user, currency } = useAppContext();
 
   const [bookings, setBookings] = useState([])
   // const currency = import.meta.env.VITE_CURRENCY
 
   const fetchMyBookings = async () => {
     try {
-      const { data } = await axios.get('/api/bookings/user');
+      const { data } = await api.get('/bookings/user');
       if (data.success) {
         setBookings(data.bookings);
       } else {

@@ -14,7 +14,7 @@ const Login = () => {
     const onSubmitHandler = async (e)=> {
         try {
             e.preventDefault();
-            const {data} = await axios.post(`/api/user/${state}`, {
+            const {data} = await api.post(`/user/${state}`, {
                 name,
                 email,
                 password

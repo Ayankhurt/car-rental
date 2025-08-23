@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 const AddCar = () => {
 
-  const {axios , currency} = useAppContext();
+  const {api , currency} = useAppContext();
 
   // const currency = import.meta.env.VITE_CURRENCY
 
@@ -36,7 +36,7 @@ const AddCar = () => {
       formData.append('image', image);
       formData.append('carData', JSON.stringify(car));
 
-      const { data } = await axios.post('/api/owner/add-car', formData)
+      const { data } = await api.post('/owner/add-car', formData)
 
       if (data.success) {
         toast.success(data.message);

@@ -5,7 +5,7 @@ import { useAppContext } from '../../context/AppContext';
 
 const Dashboard = () => {
 
-  const { axios, isOwner, currency } = useAppContext();
+  const { api, isOwner, currency } = useAppContext();
 
   // const currency = import.meta.env.VITE_CURRENCY
 
@@ -27,7 +27,7 @@ const Dashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      const { data } = await axios.get('/api/owner/dashboard');
+      const { data } = await api.get('/owner/dashboard');
       if (data.success) {
         setData(data.dashboardData);
       } else {

@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 const ManageBookings = () => {
 
-  const { axios, currency } = useAppContext();
+  const { api, currency } = useAppContext();
 
   // const currency = import.meta.env.VITE_CURRENCY
 
@@ -14,7 +14,7 @@ const ManageBookings = () => {
 
   const fetchOwnerBookings = async () => {
     try {
-      const { data } = await axios.get('/api/bookings/owner');
+      const { data } = await api.get('/bookings/owner');
       if (data.success) {
         setBookings(data.bookings);
       } else {
@@ -26,7 +26,7 @@ const ManageBookings = () => {
   }
   const changeBookingStatus = async (bookingId, status) => {
     try {
-      const { data } = await axios.post('/api/bookings/change-status', { bookingId, status });
+      const { data } = await api.post('/bookings/change-status', { bookingId, status });
       if (data.success) {
         toast.success(data.message);
         fetchOwnerBookings();

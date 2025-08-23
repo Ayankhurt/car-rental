@@ -15,7 +15,7 @@ const Navbar = () => {
 
   const changeRole = async () => {
     try {
-      const { data } = await axios.post('/api/owner/change-role');
+      const { data } = await api.post('/owner/change-role');
       if (data.success) {
         setIsOwner(true);
         toast.success(data.message);

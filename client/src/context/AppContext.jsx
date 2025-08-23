@@ -3,7 +3,12 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+const api = axios.create({
+  baseURL: window.location.href.split(":")[0] == "http" ? "http://localhost:5000/api/v1" : "/api/v1",
+  withCredentials: true,
+});
+
+export default api;
 
 export const AppContext = createContext();
 
@@ -24,7 +29,7 @@ export const AppProvider = ({ children }) => {
     //function to check if user is logged in
     const fetchUser = async () => {
         try {
-            const { data } = await axios.get('/api/user/data')
+            const { data } = await api.get('/user/data')
             if (data.success) {
                 setUser(data.user);
                 setIsOwner(data.user.role === 'owner');
@@ -40,7 +45,7 @@ export const AppProvider = ({ children }) => {
 
     const fetchCars = async () => {
         try {
-            const { data } = await axios.get('/api/user/cars');
+            const { data } = await api.get('/user/cars');
             data.success ? setCars(data.cars) : toast.error(data.message);
         } catch (error) {
             toast.error(error.message);
@@ -53,7 +58,7 @@ export const AppProvider = ({ children }) => {
         setToken(null);
         setUser(null);
         setIsOwner(false);
-        axios.defaults.headers.common['Authorization'] = '';
+        api.defaults.headers.common['Authorization'] = '';
         // navigate('/');
         toast.success('Logged out successfully');
     }
@@ -66,7 +71,7 @@ export const AppProvider = ({ children }) => {
 
     useEffect(() => {
         if (token) {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             fetchUser()
         }
     }, [token])
@@ -74,7 +79,7 @@ export const AppProvider = ({ children }) => {
     const value = {
         navigate,
         currency,
-        axios,
+        api,
         token,
         setToken,
         user,

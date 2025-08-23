@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 const ManageCar = () => {
 
-  const { isOwner, axios, currency } = useAppContext();
+  const { isOwner, api, currency } = useAppContext();
 
   // const currency = import.meta.env.VITE_CURRENCY
 
@@ -14,7 +14,7 @@ const ManageCar = () => {
 
   const fetchOwnerCars = async () => {
     try {
-      const { data } = await axios.get('/api/owner/cars');
+      const { data } = await api.get('/owner/cars');
       if (data.success) {
         setCars(data.cars);
       } else {
@@ -27,7 +27,7 @@ const ManageCar = () => {
 
   const toggleAvailability = async (carId) => {
     try {
-      const { data } = await axios.post('/api/owner/toggle-car', { carId });
+      const { data } = await api.post('/owner/toggle-car', { carId });
       if (data.success) {
         toast.success(data.message);
         fetchOwnerCars();
@@ -44,7 +44,7 @@ const ManageCar = () => {
       const confirmDelete = window.confirm("Are you sure you want to delete this car?");
       if (!confirmDelete) return null;
 
-      const { data } = await axios.post('/api/owner/delete-car', { carId });
+      const { data } = await api.post('/owner/delete-car', { carId });
       if (data.success) {
         toast.success(data.message);
         fetchOwnerCars();
