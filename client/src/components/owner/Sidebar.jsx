@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 const Sidebar = () => {
     // NOTE: In a real app, user data should not be modified directly from an import.
-    const { user, axios, fetchUser } = useAppContext();
+    const { user, api, fetchUser } = useAppContext();
     const location = useLocation()
     const [image, setImage] = useState('')
 

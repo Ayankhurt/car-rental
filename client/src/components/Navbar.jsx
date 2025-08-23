@@ -7,7 +7,7 @@ import {motion} from 'motion/react'
 
 const Navbar = () => {
   
-  const { setShowLogin ,user, logout , isOwner, axios, setIsOwner} = useAppContext();
+  const { setShowLogin ,user, logout , isOwner, api, setIsOwner} = useAppContext();
 
   const location = useLocation();
   const [open , setOpen] = useState(false)
